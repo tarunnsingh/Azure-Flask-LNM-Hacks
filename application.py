@@ -20,9 +20,6 @@ def predictor():
                 return jsonify({'sentiment' : result, 'speech': recogspeech}), 201
 
 
-if __name__ == '__main__':
-    app.run(debug = True)
-
 
 
 
