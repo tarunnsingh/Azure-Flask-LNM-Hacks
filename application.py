@@ -1,25 +1,23 @@
 from predictor import EnsembleBuilder
-from flask import Flask, render_template, url_for, request
-from flask_restful import Resource, Api
+from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-api = Api(app)
 
-class Prediction(Resource):
-        def get(self):
-                return {'Result':'Its working'}
-        
-        def post(self):
+@app.route('/', methods = ['GET'])
+def starter():
+        return {"Use" : "/predict"}
+
+@app.route('/predict', methods = ['GET', 'POST'])
+def predictor():
+        if(request.method == 'POST'):
                 rec_json = request.get_json()
                 recogspeech = rec_json['speech']
                 print(recogspeech)
                 eb = EnsembleBuilder()
                 result = eb.make_prediction(recogspeech)
                 print(result, recogspeech)
-                return {'sentiment' : result, 'speech': recogspeech}, 201
-
-api.add_resource(Prediction, '/predict')
+                return jsonify({'sentiment' : result, 'speech': recogspeech}), 201
 
 
 if __name__ == '__main__':
