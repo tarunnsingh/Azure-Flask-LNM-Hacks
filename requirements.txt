@@ -5,3 +5,4 @@ Jinja2==2.10
 MarkupSafe==1.0
 Werkzeug==0.16.0
 flask_restful==0.3.7
+nltk==3.4.5
